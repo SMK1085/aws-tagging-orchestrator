@@ -1,0 +1,73 @@
+[tool.poetry]
+name = "aws-tagging-orchestrator"
+version = "0.1.0"
+description = ""
+authors = ["Sven Maschek <smaschek@outlook.com>"]
+readme = "README.md"
+packages = [{include = "aws_tagging_orchestrator", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+boto3 = "^1.34.93"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.2"
+pytest = "^8.1.2"
+pre-commit = "^3.7.0"
+pytest-cov = "^5.0.0"
+pytest-mock = "^3.14.0"
+gevent = "^24.2.1"
+
+
+[tool.poetry.group.jupyter.dependencies]
+ipykernel = "^6.29.4"
+ipywidgets = "^8.1.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+extend-exclude = ["~/miniforge3"]
+extend-include = ["*.ipynb"]
+
+[tool.ruff.isort]
+order-by-type = true
+relative-imports-order = "closest-to-furthest"
+extra-standard-library = ["typing"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+known-first-party = []
+
+[tool.coverage.run]
+parallel = true
+branch = true
+concurrency = ["gevent"]
+omit = [
+    "/tests/*",
+    "*/tests/*",
+    "*/test/*",
+    "*/__init__.py",
+    "*/__main__.py",
+    "*/setup.py",
+    "*/conftest.py",
+    "*/config.py",
+    "*/config/*",
+    "*/migrations/*",
+    "*/migrations.py",
+]
+
+[tool.coverage.report]
+exclude_also = [
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    ]
