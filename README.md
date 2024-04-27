@@ -21,3 +21,11 @@ poetry install --with dev
 # Install pre-commit hooks
 poetry run pre-commit install
 ```
+
+### Running the tests
+
+Run the following command to run the tests:
+
+```bash
+poetry run pytest --cov='aws_tagging_orchestrator' . -n 2 --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report html --cov-report term-missing --cov-fail-under 50
+```
